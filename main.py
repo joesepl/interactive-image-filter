@@ -25,7 +25,7 @@ def main():
     orig_img = cv.imread("Photos/Griffith.jpg")
     img = orig_img
     # Create a blank picture to show current color selection
-    color_bar = np.zeros((img.shape[0], img.shape[1] // 10, 3), dtype="uint8")
+    color_bar = np.zeros((img.shape[0] // 10, img.shape[1], 3), dtype="uint8")
     # Create a window and the RGB track Bars
     cv.namedWindow("window", cv.WINDOW_AUTOSIZE)
     cv.createTrackbar("r", "window", 0, 255, nothing)
@@ -41,6 +41,8 @@ def main():
         r, g, b = get_color_vals()
         mode_choice = cv.getTrackbarPos(modes, "window")
         color_bar = update_color_bar(img, menu_text, mode_choice, r, g, b)
+        print(color_bar.shape)
+        print(img.shape)
         combined_img = np.vstack((color_bar, img))
         cv.imshow("window", combined_img)
         confirm = cv.getTrackbarPos("confirm", "window")
